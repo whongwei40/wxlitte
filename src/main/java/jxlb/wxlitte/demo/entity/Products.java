@@ -26,7 +26,7 @@ public class Products implements Serializable {
     private static final long serialVersionUID=1L;
 
     @TableId(value = "pid", type = IdType.ID_WORKER_STR)
-    private Integer pid;
+    private String pid;
 
     private String pname;
 
@@ -46,6 +46,8 @@ public class Products implements Serializable {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+
+    private String pdesc;
 
 
 }
