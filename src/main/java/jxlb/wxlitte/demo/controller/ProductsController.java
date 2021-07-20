@@ -1,15 +1,15 @@
 package jxlb.wxlitte.demo.controller;
 
 
-import cn.hutool.http.HtmlUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+
+import jxlb.wxlitte.demo.entity.UserInfo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jxlb.wxlitte.demo.entity.Products;
-import jxlb.wxlitte.demo.entity.Vo.FileID;
-import jxlb.wxlitte.demo.entity.Vo.Openid;
 import jxlb.wxlitte.demo.entity.Vo.ProductsVo;
 import jxlb.wxlitte.demo.service.ProductsService;
+import jxlb.wxlitte.demo.service.UserInfoService;
 import jxlb.wxlitte.demo.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +31,10 @@ public class ProductsController {
     @Autowired
     private  ProductsService productsService;
 
+    @Autowired
+    private UserInfoService userInfoService;
+
+
     @GetMapping("findAll")
     public  R findAll(){
 
@@ -51,7 +55,10 @@ public class ProductsController {
         products  =  productsVo.getProducts ();
         String openid =productsVo.getOpenid ();
         String fileID =productsVo.getFileID ();
+        UserInfo userInfo =productsVo.getUserInfo ();
+        userInfo.setOpenId ( openid );
 
+        userInfoService.save ( userInfo );
 
         products.setFlag ( "0" );//设置为默认上架状态
         products.setMasterId ( openid );
@@ -129,6 +136,30 @@ public class ProductsController {
 
 
     }
+
+    @PostMapping("SearchForPid")
+    public R SearchForPid(@RequestBody String ID){
+
+        System.out.println (ID);
+
+        JSONObject obj = JSONUtil.parseObj ( ID );
+        String s = obj.get ( "pid", String.class );
+
+
+
+        QueryWrapper wrapper =new QueryWrapper (  );
+        wrapper.eq ( "pid",s );
+
+        List  list = productsService.listObjs ( wrapper );
+        if (null!=list) {
+            return R.ok ().data ( "list", list );
+        }else {
+            return R.error ().message ( "暂无结果，请换一下关键词" );
+        }
+
+
+    }
+
 }
 
 

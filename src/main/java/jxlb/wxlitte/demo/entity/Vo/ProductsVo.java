@@ -1,5 +1,8 @@
 package jxlb.wxlitte.demo.entity.Vo;
 
+
+
+import jxlb.wxlitte.demo.entity.UserInfo;
 import jxlb.wxlitte.demo.entity.Products;
 import lombok.Data;
 
@@ -12,4 +15,5 @@ public class ProductsVo {
     private Products products;
     private String openid;
     private String fileID;
+    private UserInfo userInfo;
 }
