@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jxlb.wxlitte.demo.mapper.ProductsMapper">
 
+    <select id="findAll" resultType="jxlb.wxlitte.demo.entity.Products">
+
+        SELECT pid,pname,image,price,flag,category_id,master_id,create_time,update_time,pdesc
+         FROM products WHERE flag='0'
+
+    </select>
+
+
+
 </mapper>

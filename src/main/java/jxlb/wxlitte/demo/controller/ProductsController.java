@@ -38,7 +38,13 @@ public class ProductsController {
     @GetMapping("findAll")
     public  R findAll(){
 
-        List<Products> productsList = productsService.list ( null);
+
+        QueryWrapper wrapper =new QueryWrapper (  );
+        wrapper.orderByDesc ( "create_time");
+
+        List<Products> productsList =productsService.list ( wrapper );
+
+        //System.out.println (productsList.get ( 0 ).getCreateTime ()+"111111111");
 
         return R.ok ().data ( "all",productsList );
     }
@@ -58,7 +64,7 @@ public class ProductsController {
         UserInfo userInfo =productsVo.getUserInfo ();
         userInfo.setOpenId ( openid );
 
-        userInfoService.save ( userInfo );
+        userInfoService.saveOrUpdate ( userInfo );
 
         products.setFlag ( "0" );//设置为默认上架状态
         products.setMasterId ( openid );

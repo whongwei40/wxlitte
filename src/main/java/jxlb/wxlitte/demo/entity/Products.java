@@ -42,10 +42,10 @@ public class Products implements Serializable {
     private String masterId;
 
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private String createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private String updateTime;
 
     private String pdesc;
 
