@@ -132,7 +132,7 @@ public class ProductsController {
 
         QueryWrapper wrapper =new QueryWrapper (  );
         wrapper.eq ( "master_id",s );
-
+        wrapper.orderByDesc ( "create_time");
         List  list = productsService.listObjs ( wrapper );
         if (null!=list) {
             return R.ok ().data ( "list", list );
