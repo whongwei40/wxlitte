@@ -90,7 +90,25 @@
                         </includes>
                         <filtering>false</filtering>
                     </resource>
-        </resources>
+            <resource>
+                <!--从此目录下读取全部以.properties和.xml开头的文件-->
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <!--从此目录下读取全部以.properties和.xml开头的文件-->
+                <directory>src/main/java/</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+
+
+    </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -104,7 +122,14 @@
                     </excludes>
                 </configuration>
             </plugin>
-        </plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+           </plugins>
+
     </build>
 
 </project>

@@ -1,6 +1,8 @@
 package jxlb.wxlitte.demo.controller;
 
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jxlb.wxlitte.demo.entity.ChatList;
 import jxlb.wxlitte.demo.entity.Vo.ChatListVO;
@@ -41,10 +43,14 @@ public class ChatListController {
 
     }
 
-    @GetMapping("findChat")
-    public  R findChat(){
+    @PostMapping("findChat")
+    public  R findChat(@RequestBody String userId){
 
-        List list =chatListService.findAll();
+        JSONObject jsonObject = JSONUtil.parseObj ( userId );
+        String uid = jsonObject.get ( "userId", String.class );
+
+
+        List list =chatListService.findAll(uid);
 
         return R.ok ().data ( "list",list );
     }

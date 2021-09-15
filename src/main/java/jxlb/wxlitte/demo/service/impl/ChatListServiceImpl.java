@@ -8,10 +8,12 @@ import jxlb.wxlitte.demo.mapper.ChatListMapper;
 import jxlb.wxlitte.demo.service.ChatListService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jxlb.wxlitte.demo.service.ChatLogService;
+import jxlb.wxlitte.demo.utils.FormDate;
 import jxlb.wxlitte.demo.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +32,17 @@ public class ChatListServiceImpl extends ServiceImpl<ChatListMapper, ChatList> i
     ChatLogService chatLogService;
 
     @Override
-    public List findAll() {
+    public List findAll(String uid) {
 
         List endList =new ArrayList (  );
 
         QueryWrapper wrapper = new QueryWrapper (  );
         wrapper.orderByDesc ( "create_time" );
+        wrapper.eq ( "user_id",uid );
         List<ChatList> list = baseMapper.selectList ( wrapper );
 
+
+        //查询每条记录的最后一条消息
         for (ChatList c:list
              ) {
             String friendId = c.getFriendId ();
@@ -49,6 +54,14 @@ public class ChatListServiceImpl extends ServiceImpl<ChatListMapper, ChatList> i
 
             chatListVO.setLastContent ( lastContent );
             BeanUtil.copyProperties ( c,chatListVO );
+            try {
+                String formTime = FormDate.FormTime ( chatListVO.getCreateTime () );
+
+                chatListVO.setCreateTime ( formTime );
+            } catch (ParseException e) {
+                e.printStackTrace ();
+            }
+
 
             endList.add ( chatListVO );
         }

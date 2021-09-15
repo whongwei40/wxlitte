@@ -2,12 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jxlb.wxlitte.demo.mapper.ChatLogMapper">
 
+    <select id="getChatLogList" resultType="jxlb.wxlitte.demo.entity.ChatLog">
+    select c.* from (
+        select * from  chat_log
+            where user_id =#{userId} and friend_id =#{friendId}
+                union all
+        select * from  chat_log
+            where user_id =#{friendId} and friend_id =#{userId}
+            ) c
+        order by  c.create_time
+
+    </select>
+
     <select id="getlast" resultType="java.lang.String">
 
-        select talk_content from chat_log
-        where (user_id =#{UserId} and friend_id =#{FriendId})
-        or (user_id=#{FriendId} and friend_id =#{UserId})
-         order by create_time desc limit 1
+        select  c.talk_content from
+        (
+            select * from  chat_log
+            where user_id =#{UserId} and friend_id =#{FriendId}
+            union all
+            select * from  chat_log
+            where user_id =#{FriendId} and friend_id =#{UserId}
+        ) c
+        order by c.create_time desc limit 1
 
     </select>
 

@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface ChatListService extends IService<ChatList> {
 
-    List findAll();
+    List findAll(String uid);
 }

@@ -2,6 +2,9 @@ package jxlb.wxlitte.demo.mapper;
 
 import jxlb.wxlitte.demo.entity.ChatLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import jxlb.wxlitte.demo.entity.Vo.ChatLogVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface ChatLogMapper extends BaseMapper<ChatLog> {
 
     String getlast(String UserId,String FriendId);
+
+    List getChatLogList(String userId, String friendId);
 }

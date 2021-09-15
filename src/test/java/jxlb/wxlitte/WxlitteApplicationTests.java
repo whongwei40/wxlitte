@@ -42,15 +42,15 @@ class WxlitteApplicationTests {
     @Autowired
     private ChatLogService chatLogService;
 
-    @Test
+   /* @Test
     void contextLoads()  {
 
         String formdate = FormDate.Formdate ( new Date () );
         System.out.println (formdate);
 
-    }
+    }*/
 
-    @Test
+/*    @Test
     void Datetest(){
         UserInfo userInfo = new UserInfo ();
         userInfo.setOpenId ( "ovAi_5YQJw5vfJ3looMh1OMhL_-g" );
@@ -60,8 +60,8 @@ class WxlitteApplicationTests {
         boolean b = userInfoService.saveOrUpdate ( userInfo );
         System.out.println (b);
 
-    }
-    @Test
+    }*/
+/*    @Test
     void ChatLogTest(){
 
         ChatList chatList =new ChatList ();
@@ -71,9 +71,9 @@ class WxlitteApplicationTests {
 
         chatListService.saveOrUpdate ( chatList );
 
-    }
+    }*/
 
-    @Test
+/*    @Test
     void ChatTest(){
 
         ChatLog chatLog =new ChatLog ();
@@ -85,6 +85,6 @@ class WxlitteApplicationTests {
         boolean save = chatLogService.save ( chatLog );
         System.out.println (save);
 
-    }
+    }*/
 
 }
